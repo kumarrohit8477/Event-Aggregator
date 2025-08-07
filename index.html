@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Event Aggregator - Home</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+header {
+  background-color: #005f73;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.search-section {
+  text-align: center;
+  margin: 20px;
+}
+
+.search-section input {
+  padding: 10px;
+  width: 60%;
+  font-size: 16px;
+}
+
+.featured, .events {
+  padding: 20px;
+}
+
+.event-card {
+  background-color: white;
+  padding: 15px;
+  margin: 10px 0;
+  border-left: 5px solid #0a9396;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎉 Campus Event Hub</h1>
+    <p>Your one-stop place for all college events!</p>
+  </header>
+
+  <section class="search-section">
+    <input type="text" id="searchInput" placeholder="Search for events...">
+  </section>
+
+  <section class="featured">
+    <h2>🌟 Featured Event</h2>
+    <div class="event-card">
+      <h3>TechFest 2025</h3>
+      <p>Date: July 15, 2025</p>
+      <p>Location: Auditorium Hall</p>
+      <p>Description: A showcase of cutting-edge student projects, coding contests, and tech talks.</p>
+    </div>
+  </section>
+
+  <section class="events">
+    <h2>📅 Upcoming Events</h2>
+    <div id="eventList"></div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+<script>
+    const events = [
+  {
+    name: "Cultural Fest",
+    date: "July 18, 2025",
+    location: "Main Ground",
+    description: "Dance, music, and drama competitions!"
+  },
+  {
+    name: "AI Workshop",
+    date: "July 22, 2025",
+    location: "Lab 204",
+    description: "Learn basics of machine learning with hands-on projects."
+  }
+];
+
+function displayEvents(filter = "") {
+  const eventList = document.getElementById("eventList");
+  eventList.innerHTML = "";
+
+  const filteredEvents = events.filter(event =>
+    event.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  filteredEvents.forEach(event => {
+    const div = document.createElement("div");
+    div.className = "event-card";
+    div.innerHTML = `
+      <h3>${event.name}</h3>
+      <p>Date: ${event.date}</p>
+      <p>Location: ${event.location}</p>
+      <p>${event.description}</p>
+    `;
+    eventList.appendChild(div);
+  });
+}
+
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  displayEvents(e.target.value);
+});
+
+displayEvents(); // Initial load
+
+</script>
+</html>
